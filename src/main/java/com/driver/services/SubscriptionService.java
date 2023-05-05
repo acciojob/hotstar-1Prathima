@@ -123,7 +123,7 @@ public class SubscriptionService {
 //
 //        int revenue = (basicAmount*subscriptionsForBasic.size()) + (proAmount*subscriptionsForPro.size()) + (eliteAmount*subscriptionsForElite.size());
 
-        int revenue = (subscriptionsForBasic.size()*basicAmount)+(subscriptionsForPro.size()*proAmount)+(subscriptionsForElite.size()*eliteAmount);
+        int revenue = (basicAmount+proAmount+eliteAmount)*subscriptionList.size();
         return revenue;
     }
 

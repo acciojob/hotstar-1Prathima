@@ -107,9 +107,9 @@ public class SubscriptionService {
             }
         }
 
-//        int basicAmount = 0;
-//        int proAmount = 0;
-//        int eliteAmount = 0;
+        int basicAmount = 500 * subscriptionsForBasic.size();
+        int proAmount = 800 * subscriptionsForPro.size();
+        int eliteAmount = 1000 * subscriptionsForElite.size();
 //
 //        for(Subscription subscription : subscriptionsForBasic){
 //            basicAmount += subscription.getTotalAmountPaid();
@@ -123,7 +123,7 @@ public class SubscriptionService {
 //
 //        int revenue = (basicAmount*subscriptionsForBasic.size()) + (proAmount*subscriptionsForPro.size()) + (eliteAmount*subscriptionsForElite.size());
 
-        return (subscriptionsForBasic.size()+subscriptionsForPro.size()+subscriptionsForElite.size());
+        return (basicAmount+proAmount+eliteAmount);
     }
 
 }

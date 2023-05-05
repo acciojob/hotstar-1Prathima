@@ -86,26 +86,27 @@ public class SubscriptionService {
         //Hint is to use findAll function from the SubscriptionDb
 
         List<Subscription> subscriptionList = subscriptionRepository.findAll();
-        int totalAmount = 0;
-        for(Subscription subscription : subscriptionList){
-            totalAmount += subscription.getTotalAmountPaid();
-        }
-//        List<Subscription> subscriptionsForBasic = new ArrayList<>();
-//        List<Subscription> subscriptionsForPro = new ArrayList<>();
-//        List<Subscription> subscriptionsForElite = new ArrayList<>();
-//
+//        int totalAmount = 0;
 //        for(Subscription subscription : subscriptionList){
-//            if(subscription.getSubscriptionType().equals(SubscriptionType.BASIC)){
-//                subscriptionsForBasic.add(subscription);
-//            }
-//            else if(subscription.getSubscriptionType().equals(SubscriptionType.PRO)){
-//                subscriptionsForPro.add(subscription);
-//            }
-//            else{
-//                subscriptionsForElite.add(subscription);
-//            }
+//            totalAmount += subscription.getTotalAmountPaid();
 //        }
-//
+
+        List<Subscription> subscriptionsForBasic = new ArrayList<>();
+        List<Subscription> subscriptionsForPro = new ArrayList<>();
+        List<Subscription> subscriptionsForElite = new ArrayList<>();
+
+        for(Subscription subscription : subscriptionList){
+            if(subscription.getSubscriptionType().equals(SubscriptionType.BASIC)){
+                subscriptionsForBasic.add(subscription);
+            }
+            else if(subscription.getSubscriptionType().equals(SubscriptionType.PRO)){
+                subscriptionsForPro.add(subscription);
+            }
+            else{
+                subscriptionsForElite.add(subscription);
+            }
+        }
+
 //        int basicAmount = 0;
 //        int proAmount = 0;
 //        int eliteAmount = 0;
@@ -122,7 +123,7 @@ public class SubscriptionService {
 //
 //        int revenue = (basicAmount*subscriptionsForBasic.size()) + (proAmount*subscriptionsForPro.size()) + (eliteAmount*subscriptionsForElite.size());
 
-        return totalAmount*subscriptionList.size();
+        return (subscriptionsForBasic.size()+subscriptionsForPro.size()+subscriptionsForElite.size());
     }
 
 }

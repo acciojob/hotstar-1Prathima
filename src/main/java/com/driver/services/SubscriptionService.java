@@ -46,6 +46,7 @@ public class SubscriptionService {
         User user = userRepository.findById(subscriptionEntryDto.getUserId()).get();
         user.setSubscription(subscription);
         subscription.setUser(user);
+        subscriptionRepository.save(subscription);
         User savedUser = userRepository.save(user);
 
         return savedUser.getSubscription().getTotalAmountPaid();

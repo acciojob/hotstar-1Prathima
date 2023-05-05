@@ -86,30 +86,31 @@ public class SubscriptionService {
         //Hint is to use findAll function from the SubscriptionDb
 
         List<Subscription> subscriptionList = subscriptionRepository.findAll();
-//        int totalAmount = 0;
-//        for(Subscription subscription : subscriptionList){
-//            totalAmount += subscription.getTotalAmountPaid();
-//        }
-
-        List<Subscription> subscriptionsForBasic = new ArrayList<>();
-        List<Subscription> subscriptionsForPro = new ArrayList<>();
-        List<Subscription> subscriptionsForElite = new ArrayList<>();
-
+        int totalAmount = 0;
         for(Subscription subscription : subscriptionList){
-            if(subscription.getSubscriptionType().equals(SubscriptionType.BASIC)){
-                subscriptionsForBasic.add(subscription);
-            }
-            else if(subscription.getSubscriptionType().equals(SubscriptionType.PRO)){
-                subscriptionsForPro.add(subscription);
-            }
-            else{
-                subscriptionsForElite.add(subscription);
-            }
+            totalAmount += subscription.getTotalAmountPaid();
         }
 
-        int basicAmount = 500 * subscriptionsForBasic.size();
-        int proAmount = 800 * subscriptionsForPro.size();
-        int eliteAmount = 1000 * subscriptionsForElite.size();
+//        List<Subscription> subscriptionsForBasic = new ArrayList<>();
+//        List<Subscription> subscriptionsForPro = new ArrayList<>();
+//        List<Subscription> subscriptionsForElite = new ArrayList<>();
+//
+//        for(Subscription subscription : subscriptionList){
+//            if(subscription.getSubscriptionType().equals(SubscriptionType.BASIC)){
+//                subscriptionsForBasic.add(subscription);
+//            }
+//            else if(subscription.getSubscriptionType().equals(SubscriptionType.PRO)){
+//                subscriptionsForPro.add(subscription);
+//            }
+//            else{
+//                subscriptionsForElite.add(subscription);
+//            }
+//        }
+
+//        int basicAmount = 500 * subscriptionsForBasic.size();
+//        int proAmount = 800 * subscriptionsForPro.size();
+//        int eliteAmount = 1000 * subscriptionsForElite.size();
+
 //
 //        for(Subscription subscription : subscriptionsForBasic){
 //            basicAmount += subscription.getTotalAmountPaid();
@@ -123,8 +124,8 @@ public class SubscriptionService {
 //
 //        int revenue = (basicAmount*subscriptionsForBasic.size()) + (proAmount*subscriptionsForPro.size()) + (eliteAmount*subscriptionsForElite.size());
 
-        int revenue = (500+800+1000)*subscriptionList.size();
-        return revenue;
+//        int revenue = (500+800+1000)*subscriptionList.size();
+        return totalAmount;
     }
 
 }

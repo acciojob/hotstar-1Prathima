@@ -10,6 +10,7 @@ import com.driver.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,7 +48,6 @@ public class SubscriptionService {
         user.setSubscription(subscription);
         subscription.setUser(user);
         subscriptionRepository.save(subscription);
-//        User savedUser = userRepository.save(user);
 
         return subscription.getTotalAmountPaid();
     }
@@ -66,17 +66,15 @@ public class SubscriptionService {
         if(userSubscriptionType.equals(SubscriptionType.ELITE)){
             throw new Exception("Already the best Subscription");
         }
-        if(userSubscriptionType.equals(SubscriptionType.BASIC)){
+        else if(userSubscriptionType.equals(SubscriptionType.BASIC)){
             int proAmount = 800 + 250 * user.getSubscription().getNoOfScreensSubscribed();
             amount = proAmount - user.getSubscription().getTotalAmountPaid();
             subscription.setSubscriptionType(SubscriptionType.PRO);
-            subscription.setTotalAmountPaid(amount);
         }
         else if(userSubscriptionType.equals(SubscriptionType.PRO)){
             int eliteAmount = 1000 + 350 * user.getSubscription().getNoOfScreensSubscribed();
             amount = eliteAmount - user.getSubscription().getTotalAmountPaid();
             subscription.setSubscriptionType(SubscriptionType.ELITE);
-            subscription.setTotalAmountPaid(amount);
         }
         userRepository.save(user);
         return amount;
@@ -88,12 +86,39 @@ public class SubscriptionService {
         //Hint is to use findAll function from the SubscriptionDb
 
         List<Subscription> subscriptionList = subscriptionRepository.findAll();
-        int totalAmount = 0;
+        List<Subscription> subscriptionsForBasic = new ArrayList<>();
+        List<Subscription> subscriptionsForPro = new ArrayList<>();
+        List<Subscription> subscriptionsForElite = new ArrayList<>();
+
         for(Subscription subscription : subscriptionList){
-            totalAmount += subscription.getTotalAmountPaid();
+            if(subscription.getSubscriptionType().equals(SubscriptionType.BASIC)){
+                subscriptionsForBasic.add(subscription);
+            }
+            else if(subscription.getSubscriptionType().equals(SubscriptionType.PRO)){
+                subscriptionsForPro.add(subscription);
+            }
+            else{
+                subscriptionsForElite.add(subscription);
+            }
         }
 
-        return totalAmount * subscriptionList.size();
+        int basicAmount = 0;
+        int proAmount = 0;
+        int eliteAmount = 0;
+
+        for(Subscription subscription : subscriptionsForBasic){
+            basicAmount += subscription.getTotalAmountPaid();
+        }
+        for(Subscription subscription : subscriptionsForPro){
+            proAmount += subscription.getTotalAmountPaid();
+        }
+        for(Subscription subscription : subscriptionsForElite){
+            eliteAmount += subscription.getTotalAmountPaid();
+        }
+
+        int revenue = (basicAmount*subscriptionsForBasic.size()) + (proAmount*subscriptionsForPro.size()) + (eliteAmount*subscriptionsForElite.size());
+
+        return revenue;
     }
 
 }

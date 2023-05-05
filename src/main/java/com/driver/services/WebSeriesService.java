@@ -52,7 +52,7 @@ public class WebSeriesService {
         averageOfRatings = sumOfRatings / webSeriesList.size();
         productionHouse.setRatings(averageOfRatings);
 
-        ProductionHouse savedProductionHouse = productionHouseRepository.save(productionHouse);
+//        ProductionHouse savedProductionHouse = productionHouseRepository.save(productionHouse);
         return savedWebSeries.getId();
     }
 

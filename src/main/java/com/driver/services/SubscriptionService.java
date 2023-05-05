@@ -47,9 +47,9 @@ public class SubscriptionService {
         user.setSubscription(subscription);
         subscription.setUser(user);
         subscriptionRepository.save(subscription);
-        User savedUser = userRepository.save(user);
+//        User savedUser = userRepository.save(user);
 
-        return savedUser.getSubscription().getTotalAmountPaid();
+        return subscription.getTotalAmountPaid();
     }
 
     public Integer upgradeSubscription(Integer userId)throws Exception{
